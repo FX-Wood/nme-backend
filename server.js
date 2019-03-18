@@ -15,10 +15,10 @@ db.on('error', (err) => {
 
 // configure middleware
 app.use(express.urlencoded({ extended: false }))
-app.use('/', (req, res) => {
+app.get('/', (req, res) => {
     res.send("API located at /api");
 });
-
+app.use('/api', require('./routes/api'))
 
 const port = process.env.PORT || 3001
 app.listen(port, () => console.log('[nme-backend] HTTP server listening on', port))
