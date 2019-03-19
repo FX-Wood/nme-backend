@@ -26,3 +26,12 @@
 .planet-list--img {
   max-width: 30%;
 }
+
+.species-detail {
+  margin: 1em;
+  padding: 1em;
+  border: .5px solid black;
+  border-radius: 3px;
+  width: 30vw;
+  height: 30vh
+}
