@@ -43,7 +43,7 @@ class App extends Component {
     return (
     <div className="App">
       <PlanetList planets={this.state.planets} selectPlanet={this.selectPlanet} />
-      <PlanetDetail planets={this.state.planets} currentPlanet={this.state.currentPlanet} currentSpecies={this.selectSpecies} />
+      <PlanetDetail planets={this.state.planets} currentPlanet={this.state.currentPlanet} selectSpecies={this.selectSpecies} />
     </div>
     )
   }
