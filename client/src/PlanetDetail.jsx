@@ -10,6 +10,7 @@ export default function PlanetDetail({ currentPlanet, selectSpecies }) {
     } else {
         planet = (
             <>
+                <i style={ {float: 'right'} }>add_icon</i>
                 <img src={currentPlanet.img} alt={currentPlanet.name} className="planet-list--img"/>
                 <h3>{currentPlanet.name}</h3>
                 <h4>Type: {currentPlanet.type}</h4>
