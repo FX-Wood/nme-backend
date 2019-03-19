@@ -10,6 +10,7 @@ const Species = require('../models/species');
 router.route('/planets')
     // GET /api/planets - get all planets
     .get( (req, res) => {
+        console.log('// POST /api/planets', req.originalUrl)
         Planet.find( (err, planets) => {
             if (!err) {
                 res.status(200).json(planets)
@@ -21,6 +22,7 @@ router.route('/planets')
 
     // POST /api/planets - create one planet
     .post( ( req, res ) => {
+        console.log('// POST /api/planets', req.originalUrl)
         let planet = new Planet({
             name: req.body.name,
             type: req.body.type
@@ -36,9 +38,10 @@ router.route('/planets')
 router.route( '/planets/:pid' )
     // GET /api/planets/:pid - get one planet
     .get( ( req, res ) => {
+        console.log('// GET /api/planets/:pid', req.originalUrl)
         Planet.findById( req.params.id ).populate( 'species' ).exec( (err, planet) => {
             if ( !err ) {
-                res.status( 201 ).json( planet )
+                res.status( 201 )
             } else {
                 res.status(500).json(err)
             }
@@ -47,6 +50,7 @@ router.route( '/planets/:pid' )
 
     // PUT /api/planets/:pid - update one planet
     .put( ( req, res ) => {
+        console.log('PUT /api/planets/:pid', req.originalUrl)
       (async () => {
           try {
               let planet = await Planet.findById(req.params.id)
@@ -55,7 +59,7 @@ router.route( '/planets/:pid' )
               planet = await planet.save()
               res.send()
           } catch(err) {
-
+            console.log(err)
           }
       })()
     } )
@@ -112,17 +116,34 @@ router.route('/planets/:pid/species')
     })
 
     // GET /api/planets/:pid/species/:sid - gets one species from one planet
-    router.get('/planets/:pid/species/:sid', (req, res) => {
-        Planet.findById(req.params.pid).populate('species').exec( (err, planet) => {
-            if (!err) {
-                let s = planet.species.find(species => {
-                    return species._id.toString() === req.params.sid
-                })
-                res.status(201).json({ planet, species: s })
-            } else {
-                res.status(400).json(err)
-            }
+    router.route('/planets/:pid/species/:sid')
+        .get( (req, res) => {
+            console.log('GET /api/planets/:pid/species/:sid', req.originalUrl)
+            Planet.findById(req.params.pid).populate('species').exec( (err, planet) => {
+                if (!err) {
+                    let s = planet.species.find(species => {
+                        return species._id.toString() === req.params.sid
+                    })
+                    res.status(201).json({ planet, species: s })
+                } else {
+                    res.status(400).json(err)
+                }
+            })
         })
-    })
-
+    // PUT /api/planets/:pid/species/:sid - update one species from one planet
+    // returns 203, no data
+        .put( (req, res) => {
+            console.log('PUT /api/planets/:pid/species/:sid', req.originalUrl)
+            Species.findByIdAndUpdate(req.params.sid, {
+                warpCapable: req.body.warpCapable
+            }, {
+                new: true
+            }, (err, species) => {
+                if (!err) {
+                    res.status(203).json('Success!')
+                } else {
+                    res.status(500).json(err)
+                }
+            })
+        })
     module.exports = router;
