@@ -112,6 +112,17 @@ router.route('/planets/:pid/species')
     })
 
     // GET /api/planets/:pid/species/:sid - gets one species from one planet
-
+    router.get('/planets/:pid/species/:sid', (req, res) => {
+        Planet.findById(req.params.pid).populate('species').exec( (err, planet) => {
+            if (!err) {
+                let s = planet.species.find(species => {
+                    return species._id.toString() === req.params.sid
+                })
+                res.status(201).json({ planet, species: s })
+            } else {
+                res.status(400).json(err)
+            }
+        })
+    })
 
     module.exports = router;
