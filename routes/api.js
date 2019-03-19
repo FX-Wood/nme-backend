@@ -50,12 +50,13 @@ router.route( '/planets/:pid' )
 
     // PUT /api/planets/:pid - update one planet
     .put( ( req, res ) => {
-        console.log('PUT /api/planets/:pid', req.originalUrl)
-      (async () => {
+        (async () => {
+            console.log('PUT /api/planets/:pid', req.originalUrl)
           try {
-              let planet = await Planet.findById(req.params.id)
+              let planet = await Planet.findById(req.params.pid)
               if (req.body.name) planet.name = req.body.name
               if (req.body.type) planet.type = req.body.type
+              if (req.body.img) planet.img = req.body.img
               planet = await planet.save()
               res.send()
           } catch(err) {
