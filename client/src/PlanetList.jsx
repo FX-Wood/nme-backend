@@ -1,11 +1,11 @@
 import React from 'react'
 
 export default function PlanetList({ planets, selectPlanet }) {
-    console.log(planets)
+    console.log('planetList', planets)
     let list = planets.map((planet, i) => {
         return (
-            <div className="planet-list--item">
-                <p key={i} onClick={() => selectPlanet(planet)} >{planet.name + '\n' + planet.type}</p>
+            <div className="planet-list--item" key={i}>
+                <p  onClick={() => selectPlanet(planet)} >{planet.name + '\n' + planet.type}</p>
             </div>
         )
     })

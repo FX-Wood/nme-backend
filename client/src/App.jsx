@@ -14,27 +14,36 @@ class App extends Component {
       loading: false
     }
     this.selectPlanet = this.selectPlanet.bind(this)
+    this.selectSpecies = this.selectSpecies.bind(this)
   }
   selectPlanet(planet) {
+    axios.get(`/api/planets/${planet._id}/species`)
+    .then(res =>
+      this.setState({
+        currentPlanet: res.data
+      })
+    )
+  }
+  selectSpecies(species) {
     this.setState({
-      currentPlanet: planet
+      currentSpecies: species
     })
   }
+
   componentDidMount() {
     axios.get('/api/planets')
-      .then(res => {
-        this.setState({
-          planets: res.data
-        })
+    .then(res => {
+      this.setState({
+        planets: res.data
       })
+    })
   }
 
   render() {
     return (
     <div className="App">
-      <h1>Hello, here are the planets</h1>
       <PlanetList planets={this.state.planets} selectPlanet={this.selectPlanet} />
-      <PlanetDetail planets={this.state.planets} currentPlanet={this.state.currentPlanet} />
+      <PlanetDetail planets={this.state.planets} currentPlanet={this.state.currentPlanet} currentSpecies={this.selectSpecies} />
     </div>
     )
   }
