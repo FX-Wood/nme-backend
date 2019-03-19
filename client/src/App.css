@@ -1,9 +1,11 @@
 .App {
-  text-align: left;
+  display: flex;
+  flex-wrap: wrap;
+  max-width: 70vw;
+  margin: 0 auto;
 }
 
 .planet-list {
-  display: inline-block;
   margin: 1em;
   padding: 1em;
   border: .5px solid black;
@@ -13,11 +15,14 @@
 }
 
 .planet-detail {
-  display: inline-block;
   margin: 1em;
   padding: 1em;
   border: .5px solid black;
   border-radius: 3px;
   width: 30vw;
   height: 30vh
+}
+
+.planet-list--img {
+  max-width: 30%;
 }
