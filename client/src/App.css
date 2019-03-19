@@ -1,8 +1,13 @@
 .App {
-  display: flex;
-  flex-wrap: wrap;
-  max-width: 70vw;
+  display: grid;
+  grid-auto-flow: column;
+  justify-items: center;
+  max-width: 60vw;
   margin: 0 auto;
+}
+
+.App * {
+  box-sizing: border-box;
 }
 
 .planet-list {
@@ -10,8 +15,8 @@
   padding: 1em;
   border: .5px solid black;
   border-radius: 3px;
-  width: 20vw;
-  height: 80vh;
+  width: 30vh;
+  height: 70vh + 1em;
 }
 
 .planet-detail {
@@ -19,8 +24,8 @@
   padding: 1em;
   border: .5px solid black;
   border-radius: 3px;
-  width: 30vw;
-  height: 30vh
+  width: 35vh;
+  height: 35vh
 }
 
 .planet-list--img {
@@ -32,6 +37,6 @@
   padding: 1em;
   border: .5px solid black;
   border-radius: 3px;
-  width: 30vw;
-  height: 30vh
+  width: 35vh;
+  height: 35vh
 }
