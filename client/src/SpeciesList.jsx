@@ -1,8 +1,9 @@
 import React from 'react';
 
-const SpeciesList = ({ planet }) => {
-    let list = planet.species.map( (species, i) => {
-        return <li className="species-list--item" key={i}>{species.name}</li>
+export default function SpeciesList({ species }) {
+    console.log('SpeciesList', species)
+    let list = species.map( (species, i) => {
+            return <li className="species-list--item" key={i}>{species.name}</li>
     })
     if (!list.length) list = <p>Select a species</p>
     return (
