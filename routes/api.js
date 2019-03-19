@@ -20,22 +20,45 @@ router.route('/planets')
     })
 
     // POST /api/planets - create one planet
-    .post( (req, res) => {
+    .post( ( req, res ) => {
         let planet = new Planet({
             name: req.body.name,
             type: req.body.type
         })
         planet.save( (err, doc) => {
-            if (!err) {
-                res.status(201).json(doc)
+            if ( !err ) {
+                res.status( 201 ).json( doc )
             } else {
-                res.status(500).jsoin(err)
+                res.status( 500 ).jsoin( err )
             }
         })
     })
+router.route( '/planets/:pid' )
     // GET /api/planets/:pid - get one planet
+    .get( ( req, res ) => {
+        Planet.findById( req.params.id ).populate( 'species' ).exec( (err, planet) => {
+            if ( !err ) {
+                res.status( 201 ).json( planet )
+            } else {
+                res.status(500).json(err)
+            }
+        })
+    })
 
     // PUT /api/planets/:pid - update one planet
+    .put( ( req, res ) => {
+      (async () => {
+          try {
+              let planet = await Planet.findById(req.params.id)
+              if (req.body.name) planet.name = req.body.name
+              if (req.body.type) planet.type = req.body.type
+              planet = await planet.save()
+              res.send()
+          } catch(err) {
+
+          }
+      })()
+    } )
 
 router.route('/planets/:pid/species')
     // GET /api/planets/:pid/species - get all species from one planet
