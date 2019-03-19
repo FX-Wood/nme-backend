@@ -1,6 +1,7 @@
 import React, { Component } from 'react';
 import axios from 'axios';
 import './App.css';
+import PlanetList from './PlanetList';
 
 class App extends Component {
   constructor(props) {
@@ -23,16 +24,10 @@ class App extends Component {
   }
 
   render() {
-    let planets
-    if (this.state.planets.length) {
-      planets = this.state.planets.map( (planet, i) => {
-        return <div key={i} ><p>{planet.name}</p> <p>{planet.type}</p></div>
-      })
-    }
     return (
     <div className="App">
       <h1>Hello, here are the planets</h1>
-      {planets}
+      <PlanetList planets={this.state.planets} />
     </div>
     )
   }
