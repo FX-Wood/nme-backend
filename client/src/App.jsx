@@ -3,6 +3,7 @@ import axios from 'axios';
 import './App.css';
 import PlanetList from './PlanetList';
 import PlanetDetail from './PlanetDetail';
+import SpeciesDetail from './SpeciesDetail';
 
 class App extends Component {
   constructor(props) {
@@ -43,7 +44,10 @@ class App extends Component {
     return (
     <div className="App">
       <PlanetList planets={this.state.planets} selectPlanet={this.selectPlanet} />
-      <PlanetDetail planets={this.state.planets} currentPlanet={this.state.currentPlanet} selectSpecies={this.selectSpecies} />
+      <div className="details">
+        <PlanetDetail planets={this.state.planets} currentPlanet={this.state.currentPlanet} selectSpecies={this.selectSpecies} />
+        <SpeciesDetail species={this.state.currentSpecies} />
+      </div>
     </div>
     )
   }
